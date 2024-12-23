@@ -1,6 +1,12 @@
 from flask import Flask, render_template, request
+import os
+from dotenv import load_dotenv
+from flask_sqlalchemy import SQLAlchemy
+
+from utilidades import *
 
 app = Flask(__name__)
+load_dotenv()
 
 @app.route('/')
 def index():
