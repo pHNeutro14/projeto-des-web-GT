@@ -1,1 +1,9 @@
-{% extends 'models.html'}
+{% extends 'models.html' %}
+{% block title %}Pesquisar Filme{% endblock %}
+{% block content %}
+<form action="/exibir_filme" method="post">
+    <label for="titulo">Informe o Titulo do Filme: </label>
+    <input type="text" name="titulo">
+    <button type="submit" >Buscar</button>
+</form>
+{% endblock %}
