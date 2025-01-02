@@ -1,0 +1,21 @@
+{% extends 'models.html' %}
+{% block title %}Exibir{% endblock %}
+{% block content %}
+<h1>Resultados da pesquisa para "{{ titulo }}"</h1>
+
+    {% if filmes %}
+        <ul>
+            {% for filme in filmes %}
+                <li>
+                    <strong>Título:</strong> {{ filme.titulo }}<br>
+                    <strong>Gênero:</strong> {{ filme.genero }}<br>
+                    <strong>Ano de Lançamento:</strong> {{ filme.ano_lancamento }}<br>
+                    <strong>Avaliação:</strong> {{ filme.avaliacao }}
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhum filme encontrado com o título "{{ titulo }}".</p>
+    {% endif %}
+{% endblock %}

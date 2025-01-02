@@ -41,6 +41,17 @@ def enviar_filme():
 def excluir_filme():
     return render_template('excluir_filme.html')
 
-@app.route('/pesquisar_filme')
+@app.route('/filme_excluido', methods = ["get", "post"])
+def filme_excluido():
+    return render_template('filme_excluido')
+
+@app.route('/pesquisar_filme', methods = ["get", "post"])
 def pesquisar_filme():
     return render_template('pesquisar_filme.html')
+
+@app.route('/exibir_filme', methods = ["get", "post"])
+def exibir_filme():
+    if request.method == "POST":
+        titulo = request.form.get('titulo') 
+        filmes = Filme.query.filter_by(titulo=titulo).all()  
+        return render_template('exibir_filme.html', filmes=filmes, titulo=titulo)
