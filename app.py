@@ -55,3 +55,16 @@ def exibir_filme():
         titulo = request.form.get('titulo') 
         filmes = Filme.query.filter_by(titulo=titulo).all()  
         return render_template('exibir_filme.html', filmes=filmes, titulo=titulo)
+    
+@app.route('editar_avaliacao', methods = ["get", "post"])
+def editar_avaliacao():
+    return render_template('editar_avaliacao.html')
+
+@app.route('filme_editado', methods = ["get", "post"])
+def editar_avaliacao():
+    nova_avaliacao = request.form.get("titulo")
+    id = request.form.get("id")
+    avaliacao = Filme.query.get(id)
+    avaliacao.titulo = nova_avaliacao
+    db.session.commit()
+    return render_template('editar_avaliacao.html')

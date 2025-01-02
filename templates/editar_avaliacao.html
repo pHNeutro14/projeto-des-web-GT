@@ -1,1 +1,11 @@
-{% extends 'models.html'}
+{% extends 'models.html' %}
+{% block title %}Editar Avaliação{% endblock %}
+
+{%block content %}
+<form action="/filme_editado" method="post">
+    <label for="titulo">Informe o Titulo do Filme: </label>
+    <input type="text" name="titulo">
+    <label for="id">Informe o ID do filme (utilize a aba de pesquisar filmes antes!!)</label>
+    <button type="submit" >Buscar</button>
+</form>
+{% endblock %}
