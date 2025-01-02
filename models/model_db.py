@@ -12,4 +12,4 @@ class Filme(db.Model):
 
     __table_args__ = (
             CheckConstraint('avaliacao >= 0 AND avaliacao <= 10', name='check_avaliacao_range'),
-        )
+    )

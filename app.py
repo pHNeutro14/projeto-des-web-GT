@@ -37,7 +37,7 @@ def enviar_filme():
     db.session.commit()
     return render_template('enviar_filme.html', titulo = titulo, genero = genero, ano_lancamento = ano_lancamento, avaliacao = avaliacao)
 
-@app.route('/excluir_filme')
+@app.route('/excluir_filme', methods = ["get", "post"])
 def excluir_filme():
     return render_template('excluir_filme.html')
 
