@@ -1,0 +1,13 @@
+{% extends 'models.html' %}
+{% block title %}Editado{% endblock %}
+
+{% block content %}
+<main>
+    <h3>Editado!</h3>
+    <p>
+        ID do filme {{ filme.id }} <br>
+        Nome do Filme {{ filme.titulo }} <br>
+        Nova avaliação {{ filme.avaliacao }} <br>
+    </p>
+</main>
+{% endblock %}

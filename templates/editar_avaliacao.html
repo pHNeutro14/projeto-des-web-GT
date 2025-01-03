@@ -1,4 +1,5 @@
 {% extends 'models.html' %}
+<<<<<<< HEAD
 {% block title %}Editar Avaliação{% endblock %}
 
 {%block content %}
@@ -9,4 +10,17 @@
     <input type="number" name="id">
     <button type="submit" >Buscar</button>
 </form>
+=======
+{% block title %}Editar Avaliação {% endblock %}
+{% block content %}
+<main>
+    <form action="/filme_editado" method="post">
+        <label for="id">Insira o ID do filme: </label>
+        <input type="number" name="id"><br>
+        <label for="avaliacao">Digite a nota a ser alterada:</label>
+        <input type="number" name="avaliacao"><br>
+        <button type="submit">Editar</button>
+    </form>
+</main>
+>>>>>>> backend_pH
 {% endblock %}
