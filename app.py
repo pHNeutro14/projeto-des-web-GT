@@ -43,7 +43,22 @@ def excluir_filme():
 
 @app.route('/filme_excluido', methods = ["get", "post"])
 def filme_excluido():
-    return render_template('filme_excluido')
+    filme_id = request.form.get('id')
+
+    if not filme_id:
+        mensagem_excluir = "Não foi encontrado nenhum filme com esse id"
+        return render_template('filme_excluido.html', mensagem_excluir=mensagem_excluir)
+    
+    excluir_filme = Filme.query.get(filme_id)
+    if excluir_filme:
+        db.session.delete(excluir_filme)
+        db.session.commit()
+        mensagem_excluir = "Filme excluido!"
+
+    else:
+        mensagem_excluir = "Não foi encontrado nenhum filme com esse id"
+
+    return render_template('filme_excluido.html', mensagem_excluir=mensagem_excluir)
 
 @app.route('/pesquisar_filme', methods = ["get", "post"])
 def pesquisar_filme():
@@ -51,10 +66,13 @@ def pesquisar_filme():
 
 @app.route('/exibir_filme', methods = ["get", "post"])
 def exibir_filme():
-    if request.method == "POST":
-        titulo = request.form.get('titulo') 
+    titulo = request.form.get('titulo')
+    if not titulo:
+        filmes = Filme.query.all()
+    else:
         filmes = Filme.query.filter_by(titulo=titulo).all()  
-        return render_template('exibir_filme.html', filmes=filmes, titulo=titulo)
+
+    return render_template('exibir_filme.html', filmes=filmes, titulo=titulo)
 
 @app.route('/editar_avaliacao', methods = ["get", "post"])
 def editar_avaliacao():
