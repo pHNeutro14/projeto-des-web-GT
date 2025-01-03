@@ -1,1 +1,13 @@
-{% extends 'models.html'}
+{% extends 'models.html' %}
+{% block title %}Editar Avaliação {% endblock %}
+{% block content %}
+<main>
+    <form action="/filme_editado" method="post">
+        <label for="id">Insira o ID do filme: </label>
+        <input type="number" name="id"><br>
+        <label for="avaliacao">Digite a nota a ser alterada:</label>
+        <input type="number" name="avaliacao"><br>
+        <button type="submit">Editar</button>
+    </form>
+</main>
+{% endblock %}
