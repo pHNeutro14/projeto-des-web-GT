@@ -3,8 +3,9 @@ import os
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
 from models.model_db import *
-
+from models.usuarios import *
 from utilidades import *
+from flask_login import LoginManager, login_user, logout_user, login_required
 
 app = Flask(__name__)
 load_dotenv()
@@ -13,10 +14,16 @@ dbusuario = os.getenv("DB_USERNAME")
 dbsenha = os.getenv("DB_PASSWORD") 
 host = os.getenv("DB_HOST") 
 meubanco = os.getenv("DB_DATABASE") 
-
-conexao = f"mysql+pymysql://{dbusuario}:{dbsenha}@{host}/{meubanco}" 
+porta = os.getenv("DB_PORT")
+conexao = f"mysql+pymysql://{dbusuario}:{dbsenha}@{host}:{porta}/{meubanco}"
 app.config["SQLALCHEMY_DATABASE_URI"] = conexao 
 db.init_app(app) 
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+lm.init_app(app)
+
+@lm.user_loader #Função reservada do login manager para buscar usuário no banco de dados pela primary key (cpf_usuario no neste caso)
+def load_user(cpf):
+    return Usuario.query.get(cpf) #Busca no banco as informações associadas com esta chave
 
 @app.route('/', methods = ["get", "post"])
 def index():
