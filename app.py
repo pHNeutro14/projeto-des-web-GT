@@ -120,6 +120,10 @@ def cadastrar_usuario():
 
         return render_template("cadastrar_usuario.html", mensagem=mensagem)
 
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
 @app.errorhandler(404)
 def erro404(error):
     return render_template('404.html'), 404
