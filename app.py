@@ -21,9 +21,9 @@ db.init_app(app)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 lm.init_app(app)
 
-@lm.user_loader #Função reservada do login manager para buscar usuário no banco de dados pela primary key (cpf_usuario no neste caso)
+@lm.user_loader
 def load_user(cpf):
-    return Usuario.query.get(cpf) #Busca no banco as informações associadas com esta chave
+    return Usuario.query.get(cpf) 
 
 @app.route('/', methods = ["get", "post"])
 def index():
@@ -93,3 +93,37 @@ def filme_editado():
     filme.avaliacao = nova_avaliacao
     db.session.commit()
     return render_template('filme_editado.html', filme = filme)
+
+@app.route('/cadastro', methods = ["get", "post"])
+def cadastro():
+    return render_template('cadastro.html')
+
+@app.route("/cadastrar_usuario", methods = ["get", "post"])
+def cadastrar_usuario():
+    if request.method == "POST":
+        cpf = request.form.get("cpf")
+        nome = request.form.get("nome")
+        senha = request.form.get("senha")
+
+        if not cpf or not nome or not senha:
+            mensagem = "Todos os campos são obrigatórios."
+            return render_template("cadastrar_usuario.html", mensagem=mensagem)
+
+        try:
+            novo_usuario = Usuario(cpf=cpf, nome=nome, senha=senha)
+            db.session.add(novo_usuario)
+            db.session.commit()
+            mensagem = "Usuário cadastrado com sucesso!"
+        except Exception as e:
+            db.session.rollback()
+            mensagem = f"Erro ao cadastrar usuário: {e}"
+
+        return render_template("cadastrar_usuario.html", mensagem=mensagem)
+
+@app.errorhandler(404)
+def erro404(error):
+    return render_template('404.html'), 404
+
+@app.errorhandler(401)
+def erro401(error):
+    return render_template('401.html'), 401
