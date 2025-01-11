@@ -1,0 +1,14 @@
+{% extends 'models.html' %}
+{% block title %}Cadastrar Usuário{% endblock %}
+{% block content %}
+<br>
+<form action="/cadastrar_usuario" method="post">
+    <label for="">Nome: </label>
+    <input type="text"name="nome">
+    <label for="">CPF: </label>
+    <input type="text" name="cpf">
+    <label for="">Senha: </label>
+    <input type="password" name="senha">
+    <button type="submit">Cadastrar Usuário</button>
+</form>
+{% endblock %}

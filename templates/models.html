@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}  - CineRate </title>
+    <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body>
     {% block header %}
     <h1>CineRate</h1>
         <header>
             <nav>
+                <a href="/">Inicio</a>
                 <a href="/adicionar_filme">Adicionar Filme</a>
-                <a href="#">Excluir Filmes</a>
+                <a href="/excluir_filme">Excluir Filmes</a>
                 <a href="/editar_avaliacao">Editar Avaliações</a>
                 <a href="/pesquisar_filme">Buscar Filmes</a>
             </nav>
