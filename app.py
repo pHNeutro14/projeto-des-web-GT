@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from models.model_db import *
 from models.usuarios import *
 from utilidades import *
-from flask_login import LoginManager, login_user, logout_user, login_required
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
 app = Flask(__name__)
 load_dotenv()
@@ -120,9 +120,31 @@ def cadastrar_usuario():
 
         return render_template("cadastrar_usuario.html", mensagem=mensagem)
 
-@app.route('/login')
+@app.route('/login', methods = ["post", "get"])
 def login():
-    return render_template('login.html')
+    return render_template("login.html")
+
+
+@app.route('/usuario_logado', methods = ["post", "get"])
+def usuario_logado():
+    cpf = request.form.get('cpf')
+    senha = request.form.get('senha')
+    usuario = Usuario.query.filter_by(cpf=cpf).first()
+
+
+    if usuario.cpf == cpf and usuario.senha == senha:
+        login_user(usuario) 
+        return render_template("usuario_logado.html", usuario = usuario)
+    
+    else: 
+        mensagem = "credenciais não encontradas"
+        return render_template("login.html", mensagem = mensagem)
+    
+@app.route('/logout', methods = ["get", "post"])
+@login_required 
+def logout():
+    logout_user()
+    return render_template("login.html") 
 
 @app.errorhandler(404)
 def erro404(error):
